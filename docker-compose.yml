@@ -10,6 +10,7 @@ services:
       - "5900:5900"
       - "9090:9090" 
       - "50001:50001"
+    user: "1000:1000"
     environment:
       - USER=ubuntu
       - RESOLUTION=1024x768
