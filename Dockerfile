@@ -101,6 +101,8 @@ RUN gosu ubuntu code --install-extension DotJoshJohnson.xml --force && \
 RUN git clone https://github.com/SIGVerse/sigverse_ros_package.git
 
 
+RUN sudo chown ubuntu:ubuntu /app/startup.sh;sudo chmod +x /app/startup.sh
+
 ENTRYPOINT ["/app/startup.sh"]
 #CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
 
