@@ -79,23 +79,23 @@ COPY ./install_sigverse.sh ./install_sigverse.sh
 RUN sudo chmod +x ./install_sigverse.sh && bash ./install_sigverse.sh
 
 WORKDIR /home/ubuntu/
-USER ubuntu
+#USER ubuntu
 
 RUN wget -O code.deb https://go.microsoft.com/fwlink/?LinkID=760868 && sudo dpkg -i code.deb && sudo rm -f code.deb
 #RUN sh -c '/bin/echo -e "y" | code --install-extension DavidAnson.vscode-markdownlint --force'
 ENV DONT_PROMPT_WSL_INSTALL TRUE
-RUN code --install-extension DavidAnson.vscode-markdownlint --force
-RUN code --install-extension DotJoshJohnson.xml --force && \
-	code --install-extension eamodio.gitlens --force && \
-	code --install-extension mhutchie.git-graph --force && \
-	code --install-extension Kelvin.vscode-sshfs --force && \
-	code --install-extension ms-iot.vscode-ros --force && \
-	code --install-extension ms-python.python --force && \
-	code --install-extension ms-vscode.cpptools --force && \
-	code --install-extension shakram02.bash-beautify --force && \
-	code --install-extension yzhang.markdown-all-in-one --force
+RUN gosu ubuntu code --install-extension DavidAnson.vscode-markdownlint --force
+RUN gosu ubuntu code --install-extension DotJoshJohnson.xml --force && \
+	gosu ubuntu code --install-extension eamodio.gitlens --force && \
+	gosu ubuntu code --install-extension mhutchie.git-graph --force && \
+	gosu ubuntu code --install-extension Kelvin.vscode-sshfs --force && \
+	gosu ubuntu code --install-extension ms-iot.vscode-ros --force && \
+	gosu ubuntu code --install-extension ms-python.python --force && \
+	gosu ubuntu code --install-extension ms-vscode.cpptools --force && \
+	gosu ubuntu code --install-extension shakram02.bash-beautify --force && \
+	gosu ubuntu code --install-extension yzhang.markdown-all-in-one --force
 
-USER root
+#USER root
 
 #RUN sudo chown -R ubuntu:ubuntu /home/ubuntu/setup_robot_programming/
 RUN git clone https://github.com/SIGVerse/sigverse_ros_package.git
