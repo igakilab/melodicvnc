@@ -17,7 +17,8 @@ mkdir -p /catkin_ws/src && cd /catkin_ws/src && catkin_init_workspace || true
 cd /home/ubuntu/catkin_ws/ && catkin_make
 
 WS_SETUP="/catkin_ws/devel/setup.bash"
-echo "source ~${WS_SETUP}" >> ~/.bashrc
+echo "source ~${WS_SETUP}" >> /home/ubuntu/.bashrc
 
+sudo gosu ubuntu touch /home/ubuntu/.sudo_as_admin_successful
 sudo chown ubuntu:ubuntu -R /catkin_ws
 sudo gosu root /bin/tini -s -- supervisord -n -c /app/supervisord.conf

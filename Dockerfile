@@ -72,8 +72,6 @@ RUN mkdir -p /opt/noVNC/utils/websockify && \
     wget -qO- "https://github.com/novnc/websockify/tarball/master" | tar -zx --strip-components=1 -C /opt/noVNC/utils/websockify && \
     ln -s /opt/noVNC/vnc.html /opt/noVNC/index.html
 
-ADD ./app /app
-
 WORKDIR /home/ubuntu/
 
 RUN wget -O code.deb https://go.microsoft.com/fwlink/?LinkID=760868 && sudo dpkg -i code.deb && sudo rm -f code.deb
@@ -90,6 +88,7 @@ RUN gosu ubuntu code --install-extension DotJoshJohnson.xml --force && \
 	gosu ubuntu code --install-extension shakram02.bash-beautify --force && \
 	gosu ubuntu code --install-extension yzhang.markdown-all-in-one --force
 
+ADD ./app /app
 RUN sudo chown ubuntu:ubuntu /app/startup.sh;sudo chmod +x /app/startup.sh
 
 ENTRYPOINT ["/app/startup.sh"]
