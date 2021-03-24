@@ -59,8 +59,9 @@ RUN apt-get update && \
       wget \
       curl \
       net-tools \
-      vim-tiny \
+      vim-nox\
       xfce4-terminal \
+      xterm \
       tzdata rsync wget supervisor
 RUN apt-get clean && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
@@ -73,13 +74,7 @@ RUN mkdir -p /opt/noVNC/utils/websockify && \
 
 ADD ./app /app
 
-#USER ubuntu
-
-COPY ./install_sigverse.sh ./install_sigverse.sh
-RUN sudo chmod +x ./install_sigverse.sh && bash ./install_sigverse.sh
-
 WORKDIR /home/ubuntu/
-#USER ubuntu
 
 RUN wget -O code.deb https://go.microsoft.com/fwlink/?LinkID=760868 && sudo dpkg -i code.deb && sudo rm -f code.deb
 #RUN sh -c '/bin/echo -e "y" | code --install-extension DavidAnson.vscode-markdownlint --force'
@@ -95,20 +90,6 @@ RUN gosu ubuntu code --install-extension DotJoshJohnson.xml --force && \
 	gosu ubuntu code --install-extension shakram02.bash-beautify --force && \
 	gosu ubuntu code --install-extension yzhang.markdown-all-in-one --force
 
-#USER root
-
-#RUN sudo chown -R ubuntu:ubuntu /home/ubuntu/setup_robot_programming/
-RUN git clone https://github.com/SIGVerse/sigverse_ros_package.git
-
-
 RUN sudo chown ubuntu:ubuntu /app/startup.sh;sudo chmod +x /app/startup.sh
 
 ENTRYPOINT ["/app/startup.sh"]
-#CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
-
-#ADD ./startup.sh ./startup.sh
-
-#USER ubuntu
-
-#ENTRYPOINT ["/root/setup_robot_programming/startup.sh"]
-#EXPOSE 8080
