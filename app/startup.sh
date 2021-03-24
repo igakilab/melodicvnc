@@ -14,7 +14,7 @@ sudo chown ubuntu:ubuntu -R /catkin_ws
 
 mkdir -p /catkin_ws/src && cd /catkin_ws/src && catkin_init_workspace || true
 
-cd /home/ubuntu/sigverse_ros_package && git pull origin master && rsync -av  /home/ubuntu/sigverse_ros_package/ /home/ubuntu/catkin_ws/src/sigverse_ros_package/ --exclude '.git/' && cd /home/ubuntu/catkin_ws/ && catkin_make
+cd /home/ubuntu/sigverse_ros_package && sudo gosu root git pull origin master && rsync -av  /home/ubuntu/sigverse_ros_package/ /home/ubuntu/catkin_ws/src/sigverse_ros_package/ --exclude '.git/' && cd /home/ubuntu/catkin_ws/ && catkin_make
 
 WS_SETUP="/catkin_ws/devel/setup.bash"
 echo "source ~${WS_SETUP}" >> ~/.bashrc
