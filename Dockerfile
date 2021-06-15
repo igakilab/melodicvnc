@@ -72,21 +72,15 @@ RUN mkdir -p /opt/noVNC/utils/websockify && \
     wget -qO- "https://github.com/novnc/websockify/tarball/master" | tar -zx --strip-components=1 -C /opt/noVNC/utils/websockify && \
     ln -s /opt/noVNC/vnc.html /opt/noVNC/index.html
 
-WORKDIR /home/ubuntu/
+# Download url is: https://update.code.visualstudio.com/commit:${commit_id}/server-linux-x64/stable
+RUN curl -sSL "https://update.code.visualstudio.com/latest/server-linux-x64/stable" -o /tmp/vscode-server-linux-x64.tar.gz
 
-RUN wget -O code.deb https://go.microsoft.com/fwlink/?LinkID=760868 && sudo dpkg -i code.deb && sudo rm -f code.deb
-#RUN sh -c '/bin/echo -e "y" | code --install-extension DavidAnson.vscode-markdownlint --force'
-ENV DONT_PROMPT_WSL_INSTALL TRUE
-RUN gosu ubuntu code --install-extension DavidAnson.vscode-markdownlint --force
-RUN gosu ubuntu code --install-extension DotJoshJohnson.xml --force && \
-	gosu ubuntu code --install-extension eamodio.gitlens --force && \
-	gosu ubuntu code --install-extension mhutchie.git-graph --force && \
-	gosu ubuntu code --install-extension Kelvin.vscode-sshfs --force && \
-	gosu ubuntu code --install-extension ms-iot.vscode-ros --force && \
-	gosu ubuntu code --install-extension ms-python.python --force && \
-	gosu ubuntu code --install-extension ms-vscode.cpptools --force && \
-	gosu ubuntu code --install-extension shakram02.bash-beautify --force && \
-	gosu ubuntu code --install-extension yzhang.markdown-all-in-one --force
+RUN mkdir -p ~/.vscode-server/bin/latest
+# assume that you upload vscode-server-linux-x64.tar.gz to /tmp dir
+RUN tar zxvf /tmp/vscode-server-linux-x64.tar.gz -C ~/.vscode-server/bin/latest --strip 1
+RUN touch ~/.vscode-server/bin/latest/0
+
+WORKDIR /home/ubuntu/
 
 ADD ./app /app
 RUN sudo chown ubuntu:ubuntu /app/startup.sh;sudo chmod +x /app/startup.sh
