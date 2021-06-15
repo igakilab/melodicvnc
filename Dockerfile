@@ -75,11 +75,13 @@ RUN mkdir -p /opt/noVNC/utils/websockify && \
 # Download url is: https://update.code.visualstudio.com/commit:${commit_id}/server-linux-x64/stable
 RUN curl -sSL "https://update.code.visualstudio.com/latest/server-linux-x64/stable" -o /tmp/vscode-server-linux-x64.tar.gz
 
-RUN mkdir -p ~/.vscode-server/bin/latest
+RUN sudo mkdir -p /home/ubuntu/.vscode-server/bin/latest
 # assume that you upload vscode-server-linux-x64.tar.gz to /tmp dir
-RUN tar zxvf /tmp/vscode-server-linux-x64.tar.gz -C ~/.vscode-server/bin/latest --strip 1
-RUN touch ~/.vscode-server/bin/latest/0
+RUN tar zxvf /tmp/vscode-server-linux-x64.tar.gz -C /home/ubuntu/.vscode-server/bin/latest --strip 1
+RUN touch /home/ubuntu/.vscode-server/bin/latest/0
 
+RUN sudo chown -R ubuntu:ubuntu /home/ubuntu/.vscode-server/
+USER ubuntu
 WORKDIR /home/ubuntu/
 
 ADD ./app /app
