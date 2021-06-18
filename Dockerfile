@@ -81,6 +81,20 @@ RUN tar zxvf /tmp/vscode-server-linux-x64.tar.gz -C /home/ubuntu/.vscode-server/
 RUN touch /home/ubuntu/.vscode-server/bin/latest/0
 
 RUN sudo chown -R ubuntu:ubuntu /home/ubuntu/.vscode-server/
+
+#RUN curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+#RUN echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+#RUN sudo apt update
+#RUN sudo apt install -y google-chrome-stable
+
+RUN apt-get update
+RUN apt-get install -y firefox
+
+#RUN wget -qO- https://deb.opera.com/archive.key | sudo apt-key add - 
+#RUN echo deb https://deb.opera.com/opera-stable/ stable non-free | sudo tee /etc/apt/sources.list.d/opera.list 
+#RUN apt update 
+#RUN apt install -y opera-stable 
+
 USER ubuntu
 WORKDIR /home/ubuntu/
 

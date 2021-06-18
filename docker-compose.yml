@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
       - catkin_ws:/catkin_ws
+      - ubuntu:/home/ubuntu
     ports:
       - "8000:8080"
       - "5900:5900"
@@ -18,3 +19,4 @@ services:
 
 volumes:
   catkin_ws:
+  ubuntu:
