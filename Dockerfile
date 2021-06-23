@@ -82,13 +82,27 @@ RUN touch /home/ubuntu/.vscode-server/bin/latest/0
 
 RUN sudo chown -R ubuntu:ubuntu /home/ubuntu/.vscode-server/
 
+#RUN apt-get update
+
+RUN apt-get update
+RUN sudo apt-get install -y --no-install-recommends ros-melodic-rqt-graph
+RUN sudo apt-get install -y --no-install-recommends ros-melodic-rqt-image-view
+
+RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+RUN apt update
+RUN apt install -y --no-install-recommends google-chrome-stable \
+    && apt-get autoclean \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*
+
+
+
 #RUN curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 #RUN echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 #RUN sudo apt update
 #RUN sudo apt install -y google-chrome-stable
 
-RUN apt-get update
-RUN apt-get install -y firefox
 
 #RUN wget -qO- https://deb.opera.com/archive.key | sudo apt-key add - 
 #RUN echo deb https://deb.opera.com/opera-stable/ stable non-free | sudo tee /etc/apt/sources.list.d/opera.list 
