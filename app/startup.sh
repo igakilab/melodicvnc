@@ -22,7 +22,7 @@ echo "source ~${WS_SETUP}" >> /home/ubuntu/.bashrc
 mkdir -p /home/ubuntu/.config/xfce4/
 mkdir -p /home/ubuntu/.local/share/xfce4/helpers/
 
-cp -n /app/chrome/helpers.rc /home/ubuntu/.config/xfce4/
+cp /app/chrome/helpers.rc /home/ubuntu/.config/xfce4/
 cp -n /app/chrome/custom-WebBrowser.desktop /home/ubuntu/.local/share/xfce4/helpers/
 sudo cp -n /app/chrome/master_preferences /opt/google/chrome/
 
