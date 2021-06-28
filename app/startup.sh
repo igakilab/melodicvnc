@@ -26,6 +26,8 @@ cp /app/chrome/helpers.rc /home/ubuntu/.config/xfce4/
 cp -n /app/chrome/custom-WebBrowser.desktop /home/ubuntu/.local/share/xfce4/helpers/
 sudo cp -n /app/chrome/master_preferences /opt/google/chrome/
 
+#cp -n /app/vscode/settings.json /home/ubuntu/.vscode-server/data/Machine/
+
 sudo gosu ubuntu touch /home/ubuntu/.sudo_as_admin_successful
 sudo chown ubuntu:ubuntu -R /catkin_ws
 sudo gosu root /bin/tini -s -- supervisord -n -c /app/supervisord.conf

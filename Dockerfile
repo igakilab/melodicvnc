@@ -97,22 +97,32 @@ RUN apt install -y --no-install-recommends google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
 
 
+ADD ./app /app
+RUN chown ubuntu:ubuntu /app/startup.sh;sudo chmod +x /app/startup.sh
 
-#RUN curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-#RUN echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-#RUN sudo apt update
-#RUN sudo apt install -y google-chrome-stable
+#RUN wget -O code.deb https://go.microsoft.com/fwlink/?LinkID=760868 && dpkg -i code.deb && sudo rm -f code.deb
+#ENV DONT_PROMPT_WSL_INSTALL TRUE
+#RUN gosu ubuntu code --install-extension ms-python.python --force
+#RUN gosu ubuntu code --install-extension xyz.local-history --force
+#RUN gosu ubuntu code --install-extension saikou9901.evilinspector --force
+#RUN gosu ubuntu code --install-extension ms-iot.vscode-ros --force
+#RUN dpkg -r code
+#ADD ./app/vscode/settings.json /home/ubuntu/.vscode-server/data/Machine/
 
+#RUN curl -fOL https://github.com/cdr/code-server/releases/download/v3.10.2/code-server_3.10.2_amd64.deb
+RUN dpkg -i /app/vscode/code-server_3.10.2_amd64.deb
+RUN code-server --extensions-dir /home/ubuntu/.vscode-server/extensions --install-extension xyz.local-history
+RUN code-server --extensions-dir /home/ubuntu/.vscode-server/extensions --install-extension 	/app/vscode/saikou9901.evilinspector-1.0.8.vsix
+#RUN code-server --extensions-dir /home/ubuntu/.vscode-server/extensions --install-extension ms-python.python
+#RUN code-server --extensions-dir /home/ubuntu/.vscode-server/extensions --install-extension /app/vscode/ms-python.vscode-pylance-2021.6.3.vsix
+RUN dpkg -r code-server;rm -rf /app/vscode/code-server_3.10.2_amd64.deb
 
-#RUN wget -qO- https://deb.opera.com/archive.key | sudo apt-key add - 
-#RUN echo deb https://deb.opera.com/opera-stable/ stable non-free | sudo tee /etc/apt/sources.list.d/opera.list 
-#RUN apt update 
-#RUN apt install -y opera-stable 
+ADD ./app/vscode/settings.json /home/ubuntu/.vscode-server/data/Machine/
+RUN chown ubuntu:ubuntu -R /home/ubuntu/.vscode-server;chmod 644 /home/ubuntu/.vscode-server/data/Machine/settings.json
+RUN rm -rf /app/vscode/
 
 USER ubuntu
 WORKDIR /home/ubuntu/
 
-ADD ./app /app
-RUN sudo chown ubuntu:ubuntu /app/startup.sh;sudo chmod +x /app/startup.sh
 
 ENTRYPOINT ["/app/startup.sh"]

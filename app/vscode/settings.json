@@ -1,0 +1,6 @@
+{
+    "workbench.colorTheme": "Monokai",
+    "python.pythonPath": "/usr/bin/python",
+    "python.languageServer": "Default",
+    "git.enabled": false
+}
