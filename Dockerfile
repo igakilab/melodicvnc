@@ -109,13 +109,14 @@ RUN chown ubuntu:ubuntu /app/startup.sh;sudo chmod +x /app/startup.sh
 #RUN dpkg -r code
 #ADD ./app/vscode/settings.json /home/ubuntu/.vscode-server/data/Machine/
 
-#RUN curl -fOL https://github.com/cdr/code-server/releases/download/v3.10.2/code-server_3.10.2_amd64.deb
-RUN dpkg -i /app/vscode/code-server_3.10.2_amd64.deb
+RUN curl -fOL https://github.com/cdr/code-server/releases/download/v3.10.2/code-server_3.10.2_amd64.deb
+#RUN dpkg -i /app/vscode/code-server_3.10.2_amd64.deb
+RUN dpkg -i code-server_3.10.2_amd64.deb
 RUN code-server --extensions-dir /home/ubuntu/.vscode-server/extensions --install-extension xyz.local-history
 RUN code-server --extensions-dir /home/ubuntu/.vscode-server/extensions --install-extension 	/app/vscode/saikou9901.evilinspector-1.0.8.vsix
 #RUN code-server --extensions-dir /home/ubuntu/.vscode-server/extensions --install-extension ms-python.python
 #RUN code-server --extensions-dir /home/ubuntu/.vscode-server/extensions --install-extension /app/vscode/ms-python.vscode-pylance-2021.6.3.vsix
-RUN dpkg -r code-server;rm -rf /app/vscode/code-server_3.10.2_amd64.deb
+RUN dpkg -r code-server;rm -f code-server_3.10.2_amd64.deb
 
 ADD ./app/vscode/settings.json /home/ubuntu/.vscode-server/data/Machine/
 RUN chown ubuntu:ubuntu -R /home/ubuntu/.vscode-server;chmod 644 /home/ubuntu/.vscode-server/data/Machine/settings.json
